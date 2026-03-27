@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rosalie Gets a Dog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Didact+Gothic&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --dark: #1a1612;
+      --muted: #7a6e62;
+      --accent: #8b1a1a;
+      --light-line: rgba(26,22,18,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--dark);
+      font-family: 'Didact Gothic', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 560px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: grayscale(20%) contrast(1.05);
+      animation: slowZoom 14s ease-out forwards;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1.06); }
+      to   { transform: scale(1.0); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(26,22,18,0.08) 0%,
+        rgba(26,22,18,0.0) 40%,
+        rgba(26,22,18,0.72) 100%
+      );
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+      padding: 0 6vw 6vh;
+      animation: fadeUp 1.4s 0.3s both ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 8vw, 7rem);
+      color: var(--cream);
+      line-height: 1.0;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: #e8d5c4;
+    }
+
+    .hero-sub {
+      margin-top: 0.6rem;
+      font-family: 'Didact Gothic', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.7);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.4rem;
+      right: 6vw;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeIn 1s 2s forwards;
+    }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    .scroll-hint span {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.55);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: rgba(245,240,232,0.35);
+      animation: lineGrow 1.4s 2.2s ease both;
+    }
+
+    @keyframes lineGrow {
+      from { height: 0; opacity: 0; }
+      to   { height: 48px; opacity: 1; }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 6rem 6vw;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--light-line);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-logline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--dark);
+      grid-column: 1 / -1;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--light-line);
+      margin-bottom: 1rem;
+    }
+
+    .about-logline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .credits-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    .credits-block p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      max-width: 100%;
+      padding: 6rem 6vw;
+      background: var(--dark);
+    }
+
+    #gallery .section-label {
+      color: rgba(245,240,232,0.4);
+      max-width: 860px;
+      margin: 0 auto 2.5rem;
+    }
+
+    #gallery .section-label::after {
+      background: rgba(245,240,232,0.1);
+    }
+
+    .gallery-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      background: #2a2420;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(15%);
+      transition: transform 0.7s ease, filter 0.7s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+      filter: grayscale(0%);
+    }
+
+    /* Featured still — spans 2 cols */
+    .gallery-item.featured {
+      grid-column: span 2;
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #2a2420;
+      color: rgba(245,240,232,0.2);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid var(--light-line);
+    }
+
+    .contact-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .contact-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .contact-heading em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .contact-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--dark);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .contact-right {
+      text-align: right;
+    }
+
+    .contact-right p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 6vw;
+      border-top: 1px solid var(--light-line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── FADE-IN ON SCROLL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.featured { grid-column: span 1; }
+      .contact-inner { flex-direction: column; align-items: flex-start; }
+      .contact-right { text-align: left; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="hero-img" src="hero.jpg" alt="Still from Rosalie Gets a Dog"/>
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <h1 class="hero-title"><em>Rosalie</em><br>Gets a Dog</h1>
+      <p class="hero-sub">A short film &nbsp;·&nbsp; 2026</p>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label reveal">About the Film</p>
+    <div class="about-grid">
+      <p class="about-logline reveal">
+        Twelve-year-old Rosalie's life looks like a fairy tale — idyllic, sheltered, and safe.
+        But as every child knows, every fairy tale has a monster.
+        When her family doesn't care to see the ogre in plain sight,
+        she decides to take matters into her own,
+        <em>soon to be bloody, hands.</em>
+      </p>
+      <div class="reveal" style="grid-column: 1 / -1; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+        <div class="credits-block">
+          <h3>Writer &amp; Director</h3>
+          <p>Sally Wheeler Maier</p>
+        </div>
+        <div class="credits-block">
+          <h3>Producer</h3>
+          <p>Elizabeth Martin</p>
+        </div>
+        <div class="credits-block">
+          <h3>Cinematographer</h3>
+          <p>Axel Baumann</p>
+        </div>
+      </div>
+      <div class="reveal" style="grid-column: 1 / -1; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--light-line);">
+        <p style="font-size: 0.8rem; color: var(--muted); letter-spacing: 0.12em;">Full Credits — coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <p class="section-label reveal">Stills</p>
+    <div class="gallery-grid">
+      <div class="gallery-item featured reveal">
+        <img src="hero.jpg" alt="Rosalie, her grandfather, and the dog"/>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="gallery-placeholder">Still 02</div>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="gallery-placeholder">Still 03</div>
+      </div>
+      <div class="gallery-item reveal">
+        <div class="gallery-placeholder">Still 04</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO WATCH -->
+  <section id="watch">
+    <p class="section-label reveal">How to Watch</p>
+    <div class="reveal">
+      <p class="about-logline" style="font-size: clamp(1.1rem, 2vw, 1.4rem); border-bottom: none; padding-bottom: 0; margin-bottom: 0;">
+        Please check back for screening dates, times, and other updates.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label reveal">Contact</p>
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <h2 class="contact-heading">Get in<br><em>touch.</em></h2>
+        <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--muted);">Elizabeth Martin, Producer</p>
+        <a class="contact-link" href="mailto:elizabeth@wildvioletmedia.com">
+          elizabeth@wildvioletmedia.com
+        </a>
+      </div>
+      <div class="contact-right reveal">
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Rosalie Gets a Dog</span>
+    <span>&copy; 2026 Wild Violet Media</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
