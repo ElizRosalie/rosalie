@@ -12,7 +12,7 @@
       --cream: #f5f0e8;
       --dark: #1a1612;
       --muted: #7a6e62;
-      --accent: #8b1a1a;
+      --accent: #e777ff;
       --light-line: rgba(26,22,18,0.12);
     }
 
@@ -89,6 +89,32 @@
     .hero-title em {
       font-style: italic;
       color: #e8d5c4;
+    }
+
+    .hero-title-wrap {
+      position: relative;
+      width: min(90vw, 780px);
+      filter: drop-shadow(0 4px 18px rgba(0,0,0,0.35));
+    }
+
+    .hero-title-graphic {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .hero-title-heart {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: auto;
+      opacity: 0;
+      animation: heartPop 0.6s 1.8s both ease-out;
+    }
+
+    @keyframes heartPop {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     .hero-sub {
@@ -220,13 +246,13 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 260px;
       gap: 3px;
     }
 
     .gallery-item {
       position: relative;
       overflow: hidden;
-      aspect-ratio: 16/9;
       background: #2a2420;
     }
 
@@ -357,7 +383,10 @@
     <img class="hero-img" src="hero.jpg" alt="Still from Rosalie Gets a Dog"/>
     <div class="hero-overlay"></div>
     <div class="hero-text">
-      <h1 class="hero-title"><em>Rosalie</em><br>Gets a Dog</h1>
+      <div class="hero-title-wrap">
+        <img class="hero-title-graphic" src="title-graphic.png" alt="Rosalie Gets a Dog"/>
+        <img class="hero-title-heart" src="title-heart.png" alt=""/>
+      </div>
       <p class="hero-sub">A short film by Sally Wheeler &nbsp;·&nbsp; 2026</p>
     </div>
     <div class="scroll-hint">
@@ -373,7 +402,7 @@
       <p class="about-logline reveal">
         Why be the hunted when you can be the hunter?
         When twelve-year-old Rosalie’s family refuses to see the monster
-        hiding in plain sight, she taps into her own inner predator
+        hiding in plain sight, she taps in to her own inner predator
         and exacts a violent <em>and triumphant</em> revenge.
       </p>
       <div class="reveal" style="grid-column: 1 / -1; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
@@ -383,7 +412,7 @@
         </div>
         <div class="credits-block">
           <h3>Producer</h3>
-          <p>Elizabeth W. Martin</p>
+          <p>Elizabeth Martin</p>
         </div>
         <div class="credits-block">
           <h3>Cinematographer</h3>
@@ -401,16 +430,19 @@
     <p class="section-label reveal">Stills</p>
     <div class="gallery-grid">
       <div class="gallery-item featured reveal">
-        <img src="hero.jpg" alt="Rosalie, Mr England, and Tucker"/>
+        <img src="rosaliemom.jpg" alt="Rosalie and her mother"/>
       </div>
       <div class="gallery-item reveal">
         <img src="rosalieeddog.jpg" alt="Rosalie and Tucker"/>
       </div>
       <div class="gallery-item reveal">
-         <img src="rosaliemom.jpg" alt="Rosalie and her mother"/>
+         <img src="rosaliestairs.jpg" alt="Rosalie on the stairs"/>
       </div>
       <div class="gallery-item reveal">
-         <img src="rosaliestairs.jpg" alt="Rosalie on the stairs"/>
+         <img src="rosaliewindow.jpg" alt="Rosalie looking out the window"/>
+      </div>
+      <div class="gallery-item reveal">
+         <img src="dadcarhouse.jpg" alt="Mr England arriving home"/>
       </div>
     </div>
   </section>
@@ -430,8 +462,7 @@
     <p class="section-label reveal">Contact</p>
     <div class="contact-inner">
       <div class="contact-left reveal">
-        <h2 class="contact-heading">Get in<br><em>touch.</em></h2>
-        <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--muted);">Elizabeth Martin, Producer</p>
+        <p style="font-size: 0.85rem; color: var(--muted);">Elizabeth Martin, Producer</p>
         <a class="contact-link" href="mailto:elizabeth@wildvioletmedia.com">
           elizabeth@wildvioletmedia.com
         </a>
@@ -444,7 +475,7 @@
   <!-- FOOTER -->
   <footer>
     <span>Rosalie Gets a Dog</span>
-    <span>&copy; 2026 Wild Violet Media</span>
+    <span>&copy; 2026 Sally Wheeler</span>
   </footer>
 
   <script>
